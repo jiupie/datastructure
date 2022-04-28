@@ -347,9 +347,9 @@ public class SearchBinaryTree<Key, Value> implements BinaryTreeInfo {
 
     /**
      * 移除节点
-     * 1.移除度为2的节点，如果移除的节点的度为2，可以使用前驱节点或者后继节点替换他的位置，
-     * 2.如果度为1的节点，使用左子节点或者右子节点代替，如果node根节点，
-     * 3.
+     * 1.度为2的节点，删除，使用前驱节点代替
+     * 2.度为1的节点，删除，子节点代替
+     * 3.度为0的节点，删除，该节点置为null
      *
      * @param node
      */
@@ -393,8 +393,6 @@ public class SearchBinaryTree<Key, Value> implements BinaryTreeInfo {
                 root = null;
             }
         }
-
-
     }
 
     /**

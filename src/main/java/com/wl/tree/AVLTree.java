@@ -111,7 +111,7 @@ public class AVLTree<E> implements BinaryTreeInfo {
         if (node == null) {
             return null;
         }
-        //1.左子树不为空
+        //1.左子树不为空  --》一直找左子树的右子节点
         if (node.left != null) {
             AVLNode<E> left = node.left;
             while (left.right != null) {
@@ -119,7 +119,7 @@ public class AVLTree<E> implements BinaryTreeInfo {
             }
             return left;
         }
-        //2.左子树为空，父节点不为空
+        //2.左子树为空，父节点不为空  -》父子节点的右节点
         if (node.left == null && node.parent != null) {
             AVLNode<E> tempNode = null;
             while ((tempNode = node.parent) != null) {
@@ -129,7 +129,7 @@ public class AVLTree<E> implements BinaryTreeInfo {
                 node = tempNode;
             }
         }
-        //3.左子树为空且父节点为空
+        //3.左子树为空且父节点为空 -》null
         if (node.left == null && node.parent == null) {
             return null;
         }
