@@ -1,6 +1,8 @@
 package com.wl;
 
 /**
+ * 链表排序
+ *
  * @author 南顾北衫
  * @email 17674641491@163.com
  */
@@ -39,23 +41,23 @@ public class LinkedSort {
 
     private static ListNode merge(ListNode leftNode, ListNode rightNode) {
         ListNode listNode = new ListNode(0);
-        ListNode p=listNode;
+        ListNode p = listNode;
         while (rightNode != null && leftNode != null) {
             if (rightNode.val > leftNode.val) {
                 p.next = leftNode;
                 leftNode = leftNode.next;
-                p=p.next;
+                p = p.next;
             } else {
-                p.next=rightNode;
-                rightNode=rightNode.next;
-                p=p.next;
+                p.next = rightNode;
+                rightNode = rightNode.next;
+                p = p.next;
             }
         }
-        if(rightNode!=null){
-            p.next=rightNode;
+        if (rightNode != null) {
+            p.next = rightNode;
         }
-        if (leftNode!=null){
-            p.next=leftNode;
+        if (leftNode != null) {
+            p.next = leftNode;
         }
         return listNode.next;
     }
@@ -63,9 +65,9 @@ public class LinkedSort {
     private static ListNode split(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
-        ListNode pre=null;
+        ListNode pre = null;
         while (fast != null && fast.next != null) {
-            pre=slow;
+            pre = slow;
             slow = slow.next;
 
             fast = fast.next.next;

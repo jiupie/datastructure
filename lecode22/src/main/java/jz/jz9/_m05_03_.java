@@ -80,7 +80,7 @@ public class _m05_03_ {
                 l++;
                 if (s[l] == '0') {
                     res = Math.max(res, r - l + count);
-                    count = 0;
+
                 } else {
                     break;
                 }
@@ -88,4 +88,5 @@ public class _m05_03_ {
         }
         return res;
     }
+
 }
