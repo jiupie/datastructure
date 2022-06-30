@@ -2,6 +2,8 @@ package com.wl.sort;
 
 import com.wl.sort.utils.Sort;
 
+import java.util.Arrays;
+
 /**
  * QuickSort class
  *
@@ -10,6 +12,12 @@ import com.wl.sort.utils.Sort;
  * @email 17674641491@163.com
  */
 public class QuickSort<T extends Comparable<T>> extends Sort<T> {
+    public static void main(String[] args) {
+        QuickSort<Integer> tQuickSort = new QuickSort<>();
+        tQuickSort.array = new Integer[]{1, 4, 55, 454, 123, 748, 454, 12, 1, 23, 12, 48, 8};
+        tQuickSort.sort();
+        System.out.println(Arrays.toString( tQuickSort.array ));
+    }
     public void quickSort(T arr[], int leftIndex, int rightIndex) {
         if (leftIndex > rightIndex) {
             return;
