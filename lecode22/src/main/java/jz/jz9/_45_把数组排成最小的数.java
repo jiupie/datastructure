@@ -1,7 +1,5 @@
 package jz.jz9;
 
-import java.util.Arrays;
-
 /**
  * 输入一个非负整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
  * <p>
@@ -22,17 +20,20 @@ import java.util.Arrays;
 public class _45_把数组排成最小的数 {
     public static void main(String[] args) {
         int[] nums = {3, 30, 34, 5, 9};
-        minNumber(nums);
+        System.out.println(minNumber(nums));
     }
 
     public static String minNumber(int[] nums) {
         quickSort(nums, 0, nums.length - 1);
-        System.out.println(Arrays.toString(nums));
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < nums.length; i++) {
+            stringBuilder.append(nums[i]);
+        }
+        return stringBuilder.toString();
     }
 
 
-    static void quickSort(int[] nums, int left, int right) {
+    public static void quickSort(int[] nums, int left, int right) {
         if (left > right) {
             return;
         }
@@ -41,12 +42,12 @@ public class _45_把数组排成最小的数 {
 
         int value = nums[left];
 
-        while (l!= r) {
-            while (l < r && nums[r] >= value) {
+        while (l != r) {
+            while (l < r && compare(nums[r], value) >= 0) {
                 r--;
             }
 
-            while (l < r && nums[l] <= value) {
+            while (l < r && compare(nums[l], value) <= 0) {
                 l++;
             }
 
@@ -59,8 +60,14 @@ public class _45_把数组排成最小的数 {
 
         nums[left] = nums[l];
         nums[l] = value;
-        quickSort(nums, left, l-1);
+        quickSort(nums, left, l - 1);
         quickSort(nums, l + 1, right);
+    }
 
+    public static int compare(int a, int b) {
+        String i = a + "" + b + "";//330
+        String j = b + "" + a + "";//303
+        int i1 = i.compareTo(j);
+        return i1;
     }
 }
