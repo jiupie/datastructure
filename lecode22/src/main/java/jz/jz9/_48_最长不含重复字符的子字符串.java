@@ -52,10 +52,13 @@ public class _48_最长不含重复字符的子字符串 {
         Map<Character, Integer> map = new HashMap<>();
 
         while (right < s.length()) {
+            //右边扩大
             right++;
             if (right >= s.length()) {
                 return maxNum;
             }
+
+
             char c = s.charAt(right);
 
 
@@ -67,11 +70,12 @@ public class _48_最长不含重复字符的子字符串 {
             }
 
             maxNum = Math.max(maxNum, map.size());
-
-            if (right == s.length()) {
-                return maxNum;
-            }
+//
+//            if (right == s.length()) {
+//                return maxNum;
+//            }
             while (valid) {
+
                 if (left >= right) {
                     valid = false;
                     break;
