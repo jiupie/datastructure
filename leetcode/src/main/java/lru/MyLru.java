@@ -30,8 +30,8 @@ public class MyLru {
     }
 
     public MyLru(int initCapacity) {
-        head = new Node<>();
-        tail = new Node<>();
+        head = new Node();
+        tail = new Node();
         head.next = tail;
         tail.prev = head;
         this.initCapacity = initCapacity;
