@@ -13,37 +13,65 @@ public class SkipList {
 
     private Node header;
 
+    public SkipList() {
+        header = new Node();
+        header.level = MAX_LEVEL;
+        header.levelListNode = new Node[MAX_LEVEL];
+    }
 
     static class Node {
-        Node[] levelListNode = new Node[1];
+        Node[] levelListNode;
 
         int score;
 
         //层级
-        int level = levelListNode.length;
+        int level;
 
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "levelListNode=" + level() +
-                    ", score=" + score +
-                    ", level=" + level +
-                    '}';
-        }
-
-        String level() {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("[");
-            for (int i = 0; i < levelListNode.length; i++) {
-                stringBuilder.append(i).append(":").append(levelListNode[i].score).append(",");
-            }
-            stringBuilder.append("]");
-            return stringBuilder.toString();
-        }
     }
 
 
     void add(int score) {
+
+        //只需要插入
+        Node node = new Node();
+        node.level = randomLevel();
+        node.score = score;
+        node.levelListNode = new Node[node.level];
+
+        //找到每个前驱节点
+        Node[] preNode = new Node[node.level];
+        for (int i = 0; i < node.level; i++) {
+            Node node1 = header;
+            Node tempNode = node1.levelListNode[i];
+            while (tempNode != null) {
+                if (score > tempNode.score) {
+                    node1 = tempNode;
+                    tempNode = tempNode.levelListNode[i];
+                } else {
+                    break;
+                }
+            }
+            preNode[i] = node1;
+        }
+
+        for (int i = 0; i < node.level; i++) {
+            if (i >= vaildLevel) {
+                header.levelListNode[i] = node;
+            } else {
+                Node node1 = preNode[i].levelListNode[i];
+                preNode[i].levelListNode[i] = node;
+                node.levelListNode[i] = node1;
+            }
+        }
+        if (node.level > vaildLevel) {
+            vaildLevel = node.level;
+        }
+
+
+    }
+
+
+    int randomLevel() {
         Random random = new Random();
         double v = random.nextDouble();
 
@@ -53,91 +81,25 @@ public class SkipList {
             level++;
             v = random.nextDouble();
         }
-
-
-        //只需要插入
-        Node node = new Node();
-        node.level = level;
-        node.score = score;
-        node.levelListNode = new Node[level];
-
-
-        if (header == null) {
-            vaildLevel = level;
-            header = new Node();
-            header.levelListNode = new Node[vaildLevel];
-
-            //header
-            for (int j = 0; j < vaildLevel; j++) {
-                header.levelListNode[j] = node;
-            }
-
-        } else {
-            //查询
-            Node listNode = header.levelListNode[vaildLevel - 1];
-            int i = 0;
-            while (i < vaildLevel && listNode != null) {
-                if (score < listNode.score) {
-                    listNode = listNode.levelListNode[vaildLevel - 1 - i];
-                    i++;
-                } else if (score > listNode.score) {
-                    Node tempListNode = listNode.levelListNode[vaildLevel - 1 - i - 1];
-                    if (tempListNode == null) {
-                        listNode = header.levelListNode[vaildLevel - 1 - i];
-                        i++;
-                    } else {
-                        if (tempListNode.score > score) {
-                            break;
-                        }
-                    }
-                } else {
-                    //找到
-                    break;
-                }
-            }
-
-            //复制节点指针
-            int level1 = listNode.level;
-            for (int j = 0; j < level1; j++) {
-                Node listNode1 = listNode.levelListNode[j];
-                node.levelListNode[j] = listNode1;
-                listNode.levelListNode[j] = node;
-            }
-
-            if (level > level1) {
-                for (int j = level1; j < level && j < vaildLevel; j++) {
-                    Node listNode1 = header.levelListNode[j];
-                    while (listNode1 != null) {
-                        if (listNode1.score >= score) {
-
-                            break;
-                        } else {
-                            listNode1 = listNode1.next;
-                        }
-                    }
-                }
-            }
-
-            //需要修改头尾节点
-            if (header.level < level) {
-                int oldVaildLevel = vaildLevel;
-                vaildLevel = level;
-                ListNode[] listNodes = new ListNode[vaildLevel];
-                System.arraycopy(header.levelListNode, 0, listNodes, 0, header.levelListNode.length);
-                header.levelListNode = listNodes;
-
-                for (int j = oldVaildLevel; j < vaildLevel; j++) {
-                    ListNode listNode1 = new ListNode();
-                    listNode1.next = node.levelListNode[j];
-                    listNodes[j] = listNode1;
-                    listNodes[j].node = header;
-                }
-            }
-        }
-
-
+        return level;
     }
 
+    String toStr() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("一共有" + vaildLevel + "层\n");
+
+        for (int i = 0; i < vaildLevel; i++) {
+            Node tempNode = header;
+            while (tempNode != null) {
+                stringBuilder.append("\t");
+                stringBuilder.append(tempNode.level+"_").append(i).append(":").append(tempNode.score).append("\t");
+                tempNode = tempNode.levelListNode[i];
+            }
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+
+    }
 
     public static void main(String[] args) {
         SkipList skipList = new SkipList();
@@ -146,7 +108,7 @@ public class SkipList {
         skipList.add(10);
         skipList.add(2);
         skipList.add(51);
-        System.out.println(skipList.header);
+        System.out.println(skipList.toStr());
     }
 
 
