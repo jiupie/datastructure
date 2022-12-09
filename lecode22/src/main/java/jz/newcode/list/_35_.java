@@ -1,4 +1,4 @@
-package jz.newcode;
+package jz.newcode.list;
 
 /**
  * @author 南顾北衫
