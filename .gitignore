@@ -6,3 +6,4 @@
 /.gradle/
 */rebel.xml
 target/**
+**/target/*
