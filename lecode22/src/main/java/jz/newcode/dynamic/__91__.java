@@ -74,7 +74,7 @@ public class __91__ {
                 p[costs.length - 1][2]);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
 //        int cos[][] = {{3, 5, 3}, {6, 17, 6}, {7, 13, 18}, {9, 10, 18}};
         int cos[][] = {{5, 8, 6},
@@ -83,5 +83,6 @@ public class __91__ {
                 {14, 15, 17},
                 {3, 20, 10}};
         System.out.println(dynamic(cos));
+        Thread.currentThread().join();
     }
 }
