@@ -1,6 +1,8 @@
 package jz.carl;
 
 /**
+ * 零钱兑换II
+ *
  * @author 南顾北衫
  * @date 2023/4/11
  */
@@ -10,7 +12,9 @@ public class _19_ {
 
         int[] arr = {1, 2, 5};
         System.out.println(v.change(5, arr));
+        System.out.println(v.change1(5, arr));
         System.out.println(v.change(500, arr));
+        System.out.println(v.change1(500, arr));
     }
 
     public int change(int amount, int[] coins) {
@@ -35,5 +39,19 @@ public class _19_ {
         }
 
         return dp[coins.length - 1][amount];
+    }
+
+    public int change1(int amount, int[] coins) {
+
+        int[] dp = new int[amount + 1];
+
+        dp[0] = 1;
+        for (int i = 0; i < coins.length; i++) {
+            for (int j = coins[i]; j <= amount; j++) {
+                dp[j] = dp[j] + dp[j - coins[i]];
+            }
+        }
+
+        return dp[amount];
     }
 }
