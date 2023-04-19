@@ -9,6 +9,8 @@ public class _32_ {
     public int maxProfit(int[] prices) {
         //0:第i天持有
         //1:第i天不持有
+        // -7 0
+        // -1 0
         int[][] dp = new int[prices.length][2];
         dp[0][0] = -prices[0];
         dp[0][1] = 0;

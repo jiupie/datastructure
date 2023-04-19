@@ -20,6 +20,7 @@ public class Demo {
 
     public void mergeAll(int[] nums) {
         tempArr = new int[nums.length >> 1];
+
     }
 
 

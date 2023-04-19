@@ -8,8 +8,9 @@ public class _34_ {
     public int maxProfit(int[] prices) {
         //0:第i天持有
         //1:第i天不持有
-        //dp[i][0]=
-        //dp[i][1]=
+        //[7,1,5,3,6,4]
+        //[-7,0]  [-1,]
+        //
         return 0;
     }
 }

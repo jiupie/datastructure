@@ -18,6 +18,7 @@ public class _29_ {
         System.out.println(v.rob1(arr));
     }
 
+    //递归 回溯
     public int rob1(int[] nums) {
         if (nums.length == 0) {
             return 0;
@@ -35,6 +36,7 @@ public class _29_ {
         return Math.max(backtrack(nums, index - 1), backtrack(nums, index - 2) + nums[index]);
     }
 
+    //动规
     public int rob(int[] nums) {
         if (nums.length == 0) {
             return 0;

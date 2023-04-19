@@ -1,5 +1,6 @@
 package jz.carl;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -43,9 +44,21 @@ public class _26_ {
     }
 
     public boolean wordBreak(String s, List<String> wordDict) {
-        int[] dp = new int[s.length() + 1];
 
-        return true;
+        //排列 先包 再物
+        HashSet<String> dictSet = new HashSet<>(wordDict);
+        int[] dp = new int[s.length() + 1];
+        dp[0] = 1;
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i && dp[i] == 0; j++) {
+                if (dictSet.contains(s.substring(j, i)) && dp[j] == 1) {
+                    dp[i] = 1;
+                }
+            }
+        }
+
+        return dp[s.length()] == 1;
     }
+
 
 }
