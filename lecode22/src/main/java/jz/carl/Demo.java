@@ -12,7 +12,8 @@ public class Demo {
     public static void main(String[] args) {
         int[] a = {88, 44, 53, 41, 16, 6, 70, 18, 85, 98, 81, 23, 36, 43, 37};
         Demo demo = new Demo();
-        demo.insert(a);
+//        demo.insert(a);
+        demo.mergeAll(a);
         System.out.println(Arrays.toString(a));
     }
 
@@ -20,10 +21,46 @@ public class Demo {
 
     public void mergeAll(int[] nums) {
         tempArr = new int[nums.length >> 1];
-
+        divid(nums, 0, nums.length);
     }
 
+    public void divid(int[] nums, int left, int right) {
+        if (right - left < 2) {
+            return;
+        }
+        int mid = (left + right) >> 1;
+        divid(nums, left, mid);
+        divid(nums, mid, right);
+        merge(nums, left, mid, right);
+    }
 
+    private void merge(int[] nums, int left, int mid, int right) {
+        int li = 0;
+        int le = mid - left;
+        int ri = mid;
+        int re = right;
+
+        int l = left;
+
+        for (int i = 0; i < le; i++) {
+            tempArr[i] = nums[left + i];
+        }
+
+        while (li < le && ri < re) {
+            if (tempArr[li] > nums[ri]) {
+                nums[l++] = nums[ri++];
+            } else {
+                nums[l++] = tempArr[li++];
+            }
+        }
+
+        if (li < le) {
+            for (int i = li; i < le; i++) {
+                nums[l++] = tempArr[i];
+            }
+        }
+
+    }
 
 
     public void insert(int[] nums) {
