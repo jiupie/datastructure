@@ -43,7 +43,6 @@ public class _7_ {
             arrayDeque.addLast(i);
 
             //队头
-            //  2
             if (arrayDeque.peekFirst() <= i - k) {
                 arrayDeque.pollLast();
             }
