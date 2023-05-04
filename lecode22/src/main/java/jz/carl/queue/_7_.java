@@ -26,6 +26,7 @@ public class _7_ {
         return ints;
     }
 
+    //单调栈
     public int[] maxSlidingWindow1(int[] nums, int k) {
         int[] ints = new int[nums.length - k + 1];
         int index = 0;
