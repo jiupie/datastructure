@@ -45,6 +45,8 @@ public class kmpDemo {
 
         int t = 0;
         int i = 1;
+        // a a b a a b a a f a
+        // 0 1 0 1 2 0
         while (i < str.length()) {
             if (str.charAt(t) == str.charAt(i)) {
                 next[i] = t + 1;
